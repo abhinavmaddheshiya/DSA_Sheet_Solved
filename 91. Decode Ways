@@ -1,0 +1,16 @@
+/*recursive
+class Solution {
+public:
+    int numDecodings(string s) {
+        if(s.length()==0)return 1;
+        if(s[0]=='0')return 0;
+        if(s.length()==1)return 1;
+        int smallcount=0;
+        string temp = s.substr(0, 2);
+        int curr = stoi(temp);
+        if(curr<=26)smallcount=numDecodings(s.substr(2));
+        smallcount+=numDecodings(s.substr(1));
+        return smallcount;
+    }
+};
+*/
