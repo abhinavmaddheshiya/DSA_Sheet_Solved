@@ -1,3 +1,51 @@
+dp
+class Solution {
+public:
+    int numDecodings(string s) {
+        int dp[102];
+        memset(dp, 0, sizeof (dp));
+        int n = s.size();
+        dp[n+1]=1;
+        dp[n]=1;
+        for(int i=n-1;i>=0;i--){
+            int ans=0;
+            int num1 = s[i]-'0';
+            int num2=0;
+            if(i+1<s.size()){
+                int ones = s[i+1]-'0';
+                num2=10*num1+ones;
+            }
+            if(num1>0)ans+=dp[i+1];
+            if(num2>9 && num2<27)ans+=dp[i+2];
+            dp[i]=ans;         
+        }
+        return dp[0];
+    }
+};
+memoization
+class Solution {
+public:
+    int helper(string s, int i, int dp[]){
+        if(dp[i]!=-1)return dp[i];
+        int ans=0;
+        if(i>=s.size())return 1;
+        int num1 = s[i]-'0';
+        int num2=0;
+        if(i+1<s.size()){
+            int ones = s[i+1]-'0';
+            num2=10*num1+ones;
+        }
+        if(num1>0)ans+=helper(s, i+1, dp);
+        if(num2>9 && num2<27)ans+=helper(s, i+2, dp);
+        dp[i]=ans;
+        return ans;
+    }
+    int numDecodings(string s) {
+        int dp[101];
+        memset(dp, -1, sizeof (dp));
+        return helper(s, 0, dp);
+    }
+};
 /*recursive
 class Solution {
 public:
