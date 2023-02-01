@@ -1,0 +1,22 @@
+1st attempt
+class Solution {
+public:
+    int helper(TreeNode* root, int data){
+        if(root==NULL)return 0;
+        data=max(data, root->val);
+        int count=0;
+        if(root->left!=NULL){
+            if(data<=root->left->val)count++;
+            count+=helper(root->left, data);
+        }
+        if(root->right!=NULL){
+            if(data<=root->right->val)count++;
+            count+=helper(root->right, data);
+        }
+        return count;
+    }
+    int goodNodes(TreeNode* root) {
+        return helper(root, root->val)+1;
+    }
+};
+2nd attempt
