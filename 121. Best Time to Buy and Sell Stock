@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int a=0;
+        int b=0;
+        int currmin=prices[0];
+        for(int i=1;i<prices.size();i++){
+            currmin=min(currmin, prices[i]);
+            int currans=prices[i]-currmin;
+            b=max(a, currans);
+            a=b;
+        }
+        return a;
+    }
+};
