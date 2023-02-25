@@ -1,0 +1,29 @@
+class Solution {
+public:
+    string breakPalindrome(string p) {
+        if(p.size()==1)return "";
+        bool oddlen=false;
+        if(p.size()%2!=0)oddlen=true;
+        for(int i=0;i<26;i++){
+            char c='a'+i;
+            int count=0;
+            for(int i=0;i<p.size();i++){
+                if(oddlen && i==p.size()/2){
+                    count++;
+                    continue;
+                }
+                if(p[i]!=c){
+                    p[i]=c;
+                    return p;
+                }else{
+                    count++;
+                }
+            }
+            if(count==p.size()){
+                p[p.size()-1]=c+1;
+                return p;
+            }
+        }
+        return "";
+    }
+};
