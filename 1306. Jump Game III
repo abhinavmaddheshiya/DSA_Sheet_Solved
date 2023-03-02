@@ -1,0 +1,61 @@
+class Solution {
+public:
+    bool canReach(vector<int>& arr, int start) {
+        queue<int> ind;
+        int n=arr.size();
+        ind.push(start);
+        vector<bool> check(n, false);
+        while(!ind.empty()){
+            if(arr[ind.front()]==0)return true;
+            int index=ind.front();
+            ind.pop();
+            int newind1=index+arr[index];
+            int newind2=index-arr[index];
+            if(!check[index])
+            {if(newind1>=0 && newind1<n){
+                if(!check[newind1]){
+                    ind.push(newind1);
+                }
+            }
+            if(newind2>=0 && newind2<n){
+                if(!check[newind2]){
+                    ind.push(newind2);
+                }
+            }check[index]=true;
+            }
+        }
+        return false;
+    }
+};
+/*
+class Solution {
+public:
+    bool canReach(vector<int>& arr, int start) {
+        queue<int> ind;
+        int n=arr.size();
+        ind.push(start);
+        vector<bool> check(n, false);
+        check[ind.front()]=true;
+        while(!ind.empty()){
+            if(arr[ind.front()]==0)return true;
+            int index=ind.front();
+            ind.pop();
+            int newind1=index+arr[index];
+            int newind2=index-arr[index];
+            if(newind1>=0 && newind1<n){
+                if(!check[newind1]){
+                    ind.push(newind1);
+                    check[newind1]=true;
+                }
+            }
+            if(newind2>=0 && newind2<n){
+                if(!check[newind2]){
+                    ind.push(newind2);
+                    check[newind1]=true;
+                }
+            }
+        }
+        return false;
+    }
+};
+*/
