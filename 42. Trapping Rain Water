@@ -1,0 +1,58 @@
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        stack<pair<int, int>> left;
+        stack<pair<int, int>> right;//<element, index of element>
+        int si=0,ei=height.size()-1;
+        while(si<height.size() && ei>=0){
+            if(left.empty() && height[si]!=0)left.push({height[si], si});
+            else{
+                if(!left.empty() && left.top().first<=height[si]){
+                    left.push({height[si], si});
+                }
+            }
+            if(right.empty() && height[ei]!=0)right.push({height[ei], ei});
+            else{
+                if(!right.empty() && right.top().first<=height[ei]){
+                    right.push({height[ei], ei});
+                }
+            }
+            si++,ei--;
+        }
+        int result=0;
+        //for testcase 2,0,2
+        if(left.size()>0 && right.size()>0){
+            if(left.top().second!=right.top().second){
+                int idxGap=left.top().second-right.top().second-1;
+                result-=(idxGap*left.top().first);
+                for(int i=right.top().second+1;i<left.top().second;i++){
+                    result+=height[i];
+                }    
+            }
+        }
+        while(left.size()>1){
+            pair<int, int> curr=left.top();
+            left.pop();
+            pair<int, int> temp = left.top();
+            int idxGap=curr.second-temp.second-1;
+            int trapped=min(curr.first, temp.first)*idxGap;
+            for(int i=temp.second+1;i<curr.second;i++){
+                trapped-=height[i];
+            }
+            result+=trapped;
+        }
+        while(right.size()>1){
+            pair<int, int> curr=right.top();
+            right.pop();
+            pair<int, int> temp = right.top();
+            int idxGap=temp.second-curr.second-1;
+            int trapped=min(curr.first, temp.first)*idxGap;
+            for(int i=curr.second+1;i<temp.second;i++){
+                trapped-=height[i];
+            }
+            result+=trapped;
+        }
+        
+        return result;
+    }
+};
