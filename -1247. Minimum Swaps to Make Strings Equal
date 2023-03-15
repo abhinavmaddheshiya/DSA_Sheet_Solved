@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int minimumSwap(string s1, string s2) {
+        int i=0;
+        int countX=0,countY=0;
+        while(i<s1.size()){
+            if(s1[i]=='x')countX++;
+            else countY++;
+            if(s2[i]=='x')countX++;
+            else countY++;
+            i++;
+        }
+        if(countX%2!=0 || countY%2!=0)return -1;
+        i=0;
+        int xy=0,yx=0;
+        while(i<s1.size()){
+            if(s1[i]==s2[i])i++;
+            else{
+                if(s1[i]=='x' && s2[i]=='y')xy++;
+                else yx++;
+                i++;
+            }
+        }
+        int count=0;
+        count=(xy/2)+(yx/2);
+        if(xy%2!=0 && yx%2!=0)count+=2;
+        return count;
+    }
+};
