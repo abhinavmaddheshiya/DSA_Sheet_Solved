@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int longestCommonSubsequence(string text1, string text2) {
+        int size1=text1.size(), size2=text2.size();
+        vector<int> front(size2+1, 0), curr(size2+1, 0);
+        for(int ind1=size1-1;ind1>=0;ind1--){
+            for(int ind2=size2-1;ind2>=0;ind2--){
+                if(text1[ind1]==text2[ind2])curr[ind2] = 1+front[ind2+1];
+                else curr[ind2] = max(front[ind2], curr[ind2+1]);
+            }
+            front=curr;
+        }
+        return curr[0];
+    }
+};
